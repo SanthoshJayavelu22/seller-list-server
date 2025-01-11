@@ -9,7 +9,13 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors()); 
+app.use(cors({
+  origin: 'https://d1qxpxz36vqnj6.cloudfront.net', // Allow only CloudFront domain
+  methods: 'GET,POST,PUT,DELETE',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, // If you use cookies for auth
+}));
+
 
 // Connect to the database
 connectDB();
