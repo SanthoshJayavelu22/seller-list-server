@@ -10,7 +10,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: 'https://d1qxpxz36vqnj6.cloudfront.net', // Allow only CloudFront domain
+  origin: '*',
   methods: 'GET,POST,PUT,DELETE',
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true, // If you use cookies for auth
