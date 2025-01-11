@@ -2,8 +2,17 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const cors = require('cors');
+require('dotenv').config();  // To load environment variables
+
 const router = express.Router();
 
+// Enable CORS for cross-origin requests
+router.use(cors({
+  origin: '*',  // Change this to the specific frontend URL if needed
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true  // Allow credentials
+}));
 
 router.post('/register', async (req, res) => {
   try {
@@ -36,7 +45,6 @@ router.post('/login', async (req, res) => {
 
     const payload = { userId: user.id, name: user.name };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
-
 
     res.json({ token });
   } catch (err) {
